@@ -9,12 +9,12 @@ package gerenciadormemoria;
  *
  * @author cstads
  */
-public class FreeMemory {
+public class TableMemory {
     private int inicio;
     private int tamanho;
     private int fim;
 
-    FreeMemory(int inicio, int tamanho, int fim) {
+    TableMemory(int inicio, int tamanho, int fim) {
         this.inicio = inicio;
         this.tamanho = tamanho;
         this.fim = fim;
@@ -32,11 +32,11 @@ public class FreeMemory {
         return fim;
     }
 
-    public int getInicio(int tamanho){
-        if (this.tamanho > tamanho) {
-            return this.inicio;
+    public boolean getInicio(int tamanho){
+        if (this.tamanho >= tamanho) {
+            return true;
         } else {
-            return -1;
+            return false;
         }
     }
     
@@ -52,5 +52,9 @@ public class FreeMemory {
     
     public void incrementarFim(int tamanho) {
         this.fim += tamanho;
+    }
+
+    public void String() {
+        System.out.println("[Inicio: " + this.inicio + "\tTamanho: " + this.tamanho + "\tFim: " + this.fim + "]");
     }
 }
