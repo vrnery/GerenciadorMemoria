@@ -36,6 +36,7 @@ public class WorstFit {
     }
 
     public void inserir(String nome, int tamanho) {
+        boolean cheia = true;
         int ini = 0, tam = 0, fim = 0;
         for (TableMemory tabela : GerenciadorMemoria.free) {
             if (tamanho <= tabela.getTamanho()) {
@@ -51,10 +52,12 @@ public class WorstFit {
                 if (tabela.getTamanho() != 0) {
                     GerenciadorMemoria.free.add(new TableMemory(ini, tam, fim));
                 }
+                cheia = false;
                 break;
-            } else {
-                System.out.println("\nMemoria cheia");
             }
+        }
+        if(cheia) {
+            System.out.println("\nMemoria cheia");
         }
     }
 
