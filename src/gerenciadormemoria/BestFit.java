@@ -15,6 +15,7 @@ public class BestFit {
         boolean contem = false;
         TableMemory.ordena(GerenciadorMemoria.free);
         TableMemory.ajustarTabela();
+        TableMemory.ordenaBest(GerenciadorMemoria.free);
 
         if (tamanho > 0) {
             for (Memoria memoria : GerenciadorMemoria.memoria) {
@@ -38,23 +39,23 @@ public class BestFit {
     public void inserir(String nome, int tamanho) {
         int ini = 0, tam = 0, fim = 0;
         for (TableMemory tabela : GerenciadorMemoria.free) {
-            if (tam <= tabela.getTamanho()) {
+            if (tamanho <= tabela.getTamanho()) {
+                System.out.println("\nCarregando na memoria o processo " + nome + " na possição " + ini + " com tamanho " + tamanho);
+                Memoria addMemoria = new Memoria(tabela.getInicio(), nome, tamanho);
+                GerenciadorMemoria.memoria.add(addMemoria);
+                tabela.reduzirTamanho(tamanho);
                 ini = tabela.getInicio();
                 tam = tabela.getTamanho();
                 fim = tabela.getFim();
+                GerenciadorMemoria.free.remove(tabela);
+                
+                if (tabela.getTamanho() != 0) {
+                    GerenciadorMemoria.free.add(new TableMemory(ini, tam, fim));
+                }
+                break;
+            } else {
+                System.out.println("\nMemoria cheia");
             }
-        }
-        System.out.println(ini + " " + tam + " " + fim);
-        if (tam >= tamanho) {
-            System.out.println("\nCarregando na memoria o processo " + nome + " na possição " + ini + " com tamanho " + tamanho);
-            Memoria addMemoria = new Memoria(ini, nome, tamanho);
-            TableMemory tabela = new TableMemory(ini, tam, fim);
-            GerenciadorMemoria.free.remove(tabela);
-            GerenciadorMemoria.memoria.add(addMemoria);
-            tabela.reduzirTamanho(tamanho);
-            //GerenciadorMemoria.free.add(tabela);
-        } else {
-            System.out.println("\nMemoria cheia");
         }
     }
 
