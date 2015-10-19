@@ -5,11 +5,14 @@
  */
 package gerenciadormemoria;
 
+import java.util.Arrays;
+
 /**
  *
  * @author cstads
  */
 public class Memoria {
+
     private int inicio;
     private String nome;
     private int tamanho;
@@ -42,6 +45,28 @@ public class Memoria {
 
     public void setTamanho(int tamanho) {
         this.tamanho = tamanho;
+    }
+
+    public static void ordenarMemoria() {
+        int cont = GerenciadorMemoria.memoria.size();
+        Memoria[] memoria = new Memoria[cont];
+        Memoria aux;
+
+        for (int i = 0; i < GerenciadorMemoria.memoria.size(); i++) {
+            memoria[i] = GerenciadorMemoria.memoria.get(i);
+        }
+
+        for (int i = 0; i < cont; i++) {
+            for (int j = cont - 1; j > i; j--) {
+                if (memoria[i].getInicio() > memoria[j].getInicio()) {
+                    aux = memoria[i];
+                    memoria[i] = memoria[j];
+                    memoria[j] = aux;
+                }
+            }
+        }
+        GerenciadorMemoria.memoria.clear();
+        GerenciadorMemoria.memoria.addAll(Arrays.asList(memoria));
     }
 
     public void String() {

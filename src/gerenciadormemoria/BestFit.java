@@ -9,9 +9,8 @@ package gerenciadormemoria;
  *
  * @author cstads
  */
-public class FirstFit {
+public class BestFit {
 
-    @SuppressWarnings("empty-statement")
     public void procurar(String nome, int tamanho) {
         boolean contem = false;
         TableMemory.ordena(GerenciadorMemoria.free);
@@ -37,27 +36,24 @@ public class FirstFit {
     }
 
     public void inserir(String nome, int tamanho) {
-        boolean cheia = true;
-        int ini, tam, fim;
+        int ini = 0, tam = 0, fim = 0;
         for (TableMemory tabela : GerenciadorMemoria.free) {
-            if (tabela.getInicio(tamanho)) {
-                System.out.println("\nCarregando na memoria o processo " + nome + " na possição " + tabela.getInicio() + " com tamanho " + tamanho);
-                Memoria addMemoria = new Memoria(tabela.getInicio(), nome, tamanho);
-                GerenciadorMemoria.memoria.add(addMemoria);
-                tabela.reduzirTamanho(tamanho);
+            if (tam <= tabela.getTamanho()) {
                 ini = tabela.getInicio();
                 tam = tabela.getTamanho();
                 fim = tabela.getFim();
-                GerenciadorMemoria.free.remove(tabela);
-
-                if (tabela.getTamanho() != 0) {
-                    GerenciadorMemoria.free.add(new TableMemory(ini, tam, fim));
-                }
-                cheia = false;
-                break;
             }
         }
-        if (cheia) {
+        System.out.println(ini + " " + tam + " " + fim);
+        if (tam >= tamanho) {
+            System.out.println("\nCarregando na memoria o processo " + nome + " na possição " + ini + " com tamanho " + tamanho);
+            Memoria addMemoria = new Memoria(ini, nome, tamanho);
+            TableMemory tabela = new TableMemory(ini, tam, fim);
+            GerenciadorMemoria.free.remove(tabela);
+            GerenciadorMemoria.memoria.add(addMemoria);
+            tabela.reduzirTamanho(tamanho);
+            //GerenciadorMemoria.free.add(tabela);
+        } else {
             System.out.println("\nMemoria cheia");
         }
     }
