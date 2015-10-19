@@ -102,6 +102,27 @@ public class TableMemory {
         GerenciadorMemoria.free.addAll(Arrays.asList(ord));
     }
 
+    public static void ordenaWorst(ArrayList<TableMemory> tm) {
+        int cont = tm.size();
+        TableMemory[] ord = new TableMemory[cont];
+        TableMemory aux;
+
+        for (int i = 0; i < cont; i++) {
+            ord[i] = tm.get(i);
+        }
+        for (int i = 0; i < cont; i++) {
+            for (int j = cont - 1; j > i; j--) {
+                if (ord[i].getTamanho() > ord[j].getTamanho()) {
+                    aux = ord[i];
+                    ord[i] = ord[j];
+                    ord[j] = aux;
+                }
+            }
+        }
+        GerenciadorMemoria.free.clear();
+        GerenciadorMemoria.free.addAll(Arrays.asList(ord));
+    }
+
     public static void ajustarTabela() {
         ArrayList<TableMemory> ajustar = new ArrayList<TableMemory>();
         TableMemory comparar = null;

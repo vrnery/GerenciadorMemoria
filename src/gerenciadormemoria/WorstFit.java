@@ -9,13 +9,12 @@ package gerenciadormemoria;
  *
  * @author cstads
  */
-public class BestFit {
-
+public class WorstFit {
     public void procurar(String nome, int tamanho) {
         boolean contem = false;
         TableMemory.ordena(GerenciadorMemoria.free);
         TableMemory.ajustarTabela();
-        TableMemory.ordenaBest(GerenciadorMemoria.free);
+        TableMemory.ordenaWorst(GerenciadorMemoria.free);
 
         if (tamanho > 0) {
             for (Memoria memoria : GerenciadorMemoria.memoria) {
