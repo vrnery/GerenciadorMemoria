@@ -6,7 +6,6 @@
 package gerenciadormemoria;
 
 import java.util.ArrayList;
-import org.omg.CORBA.FREE_MEM;
 
 /**
  *
@@ -32,7 +31,6 @@ public class GerenciadorMemoria {
         free.get(0).String();
         System.out.println("=========================================================");
         for (String processoAtual[] : processo) {
-            //ArrayList<TableMemory> ordem = free;
             first.procurar(processoAtual[0], Integer.parseInt(processoAtual[1]));
             System.out.println("================ Espaço livre na memoria ================");
             TableMemory.ordena(free);
@@ -41,7 +39,6 @@ public class GerenciadorMemoria {
                 tabela.String();
             });
             System.out.println("=================== Memoria utilizada ===================");
-            //System.out.println(memoria.toString());
             Memoria.ordenarMemoria();
             memoria.stream().forEach((carregada) -> {
                 carregada.String();
@@ -52,6 +49,7 @@ public class GerenciadorMemoria {
         System.out.println("\n\n=========================================================");
         System.out.println("=========================================================");
         System.out.println("=========================================================");
+        System.out.println("                    BEST-FIT");
         System.out.println("=========================================================");
         System.out.println("=========================================================");
         System.out.println("=========================================================\n\n");
@@ -85,6 +83,7 @@ public class GerenciadorMemoria {
         System.out.println("\n\n=========================================================");
         System.out.println("=========================================================");
         System.out.println("=========================================================");
+        System.out.println("                    WORST-FIT");
         System.out.println("=========================================================");
         System.out.println("=========================================================");
         System.out.println("=========================================================\n\n");
