@@ -54,7 +54,7 @@ public class BestFit {
                 }
                 break;
             } else {
-                System.out.println("\nMemoria cheia");
+                System.out.println("\nMemoria cheia - " + nome + "-" + tamanho);
             }
         }
     }

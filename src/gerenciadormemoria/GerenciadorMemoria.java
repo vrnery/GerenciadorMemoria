@@ -16,6 +16,7 @@ public class GerenciadorMemoria {
     public static String processo[][] = {{"SO", "100"}, {"MSN", "50"}, {"FIREFOX", "80"}, {"WORD", "100"}, {"EXCEL", "120"}, {"PHOTOSHOP", "450"}, {"WORD", "0"}, {"WORD", "100"}, {"EXCEL", "0"}, {"MSN", "0"}, {"PHOTOSHOP", "0"}, {"ACROBAT", "350"}, {"COUNTER", "230"}, {"MSN", "50"}, {"COUNTER", "0"}, {"WIRESHARK", "150"}, {"TERMINAL", "20"}, {"CHROME", "100"}, {"WORD", "0"}, {"DROPBOX", "50"}, {"TERMINAL", "0"}, {"WIRESHARK", "0"}, {"WORD", "100"}};
     public static ArrayList<TableMemory> free = new ArrayList<TableMemory>();
     public static ArrayList<Memoria> memoria = new ArrayList<Memoria>();
+    public static int posicao = 0;
 
     /**
      * @param args the command line arguments
@@ -100,6 +101,40 @@ public class GerenciadorMemoria {
         System.out.println("=========================================================");
         for (String processoAtual[] : processo) {
             worst.procurar(processoAtual[0], Integer.parseInt(processoAtual[1]));
+            System.out.println("================ Espaço livre na memoria ================");
+            TableMemory.ordena(free);
+            TableMemory.ajustarTabela();
+            free.stream().forEach((tabela) -> {
+                tabela.String();
+            });
+            System.out.println("=================== Memoria utilizada ===================");
+            Memoria.ordenarMemoria();
+            memoria.stream().forEach((carregada) -> {
+                carregada.String();
+            });
+            System.out.println("=========================================================");
+        }
+        
+        System.out.println("\n\n=========================================================");
+        System.out.println("=========================================================");
+        System.out.println("=========================================================");
+        System.out.println("                    NEXT-FIT");
+        System.out.println("=========================================================");
+        System.out.println("=========================================================");
+        System.out.println("=========================================================\n\n");
+        
+        free.clear();
+        memoria.clear();
+        
+        livre = new TableMemory(0, 1024, 1023);
+        free.add(0, livre);
+
+        NextFit next = new NextFit();
+        System.out.println("================ Espaço livre na memoria ================");
+        free.get(0).String();
+        System.out.println("=========================================================");
+        for (String processoAtual[] : processo) {
+            next.procurar(processoAtual[0], Integer.parseInt(processoAtual[1]));
             System.out.println("================ Espaço livre na memoria ================");
             TableMemory.ordena(free);
             TableMemory.ajustarTabela();

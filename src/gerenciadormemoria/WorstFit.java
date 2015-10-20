@@ -57,7 +57,7 @@ public class WorstFit {
             }
         }
         if(cheia) {
-            System.out.println("\nMemoria cheia");
+            System.out.println("\nMemoria cheia - " + nome + "-" + tamanho);
         }
     }
 

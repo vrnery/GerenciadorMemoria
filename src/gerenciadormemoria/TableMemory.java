@@ -91,7 +91,7 @@ public class TableMemory {
         }
         for (int i = 0; i < cont; i++) {
             for (int j = cont - 1; j > i; j--) {
-                if (ord[i].getTamanho()< ord[j].getTamanho()) {
+                if (ord[i].getTamanho() < ord[j].getTamanho()) {
                     aux = ord[i];
                     ord[i] = ord[j];
                     ord[j] = aux;
@@ -121,6 +121,28 @@ public class TableMemory {
         }
         GerenciadorMemoria.free.clear();
         GerenciadorMemoria.free.addAll(Arrays.asList(ord));
+    }
+
+    public static void ordenaNext() {
+        int cont = GerenciadorMemoria.free.size();
+        ArrayList<TableMemory> ord = new ArrayList<TableMemory>();
+        
+        if (GerenciadorMemoria.free.size() > 1) {
+            for (int i = 0; i<cont; i++) {
+                if(GerenciadorMemoria.free.get(i).getInicio() >= GerenciadorMemoria.posicao) {
+                    for(int j=0; j<cont; j++) {
+                        if(j+i >= cont) {
+                            ord.add(GerenciadorMemoria.free.get(j+i-cont));
+                        } else {
+                            ord.add(GerenciadorMemoria.free.get(j+i));
+                        }
+                    }
+                    break;
+                }
+            }
+            GerenciadorMemoria.free.clear();
+            GerenciadorMemoria.free.addAll(ord);
+        }
     }
 
     public static void ajustarTabela() {

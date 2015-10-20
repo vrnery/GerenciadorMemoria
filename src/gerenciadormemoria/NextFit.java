@@ -9,13 +9,13 @@ package gerenciadormemoria;
  *
  * @author cstads
  */
-public class FirstFit {
-
+public class NextFit {
     @SuppressWarnings("empty-statement")
     public void procurar(String nome, int tamanho) {
         boolean contem = false;
         TableMemory.ordena(GerenciadorMemoria.free);
         TableMemory.ajustarTabela();
+        TableMemory.ordenaNext();
 
         if (tamanho > 0) {
             for (Memoria memoria : GerenciadorMemoria.memoria) {
@@ -42,6 +42,7 @@ public class FirstFit {
         for (TableMemory tabela : GerenciadorMemoria.free) {
             if (tabela.getInicio(tamanho)) {
                 System.out.println("\nCarregando na memoria o processo " + nome + " na possição " + tabela.getInicio() + " com tamanho " + tamanho);
+                GerenciadorMemoria.posicao = tabela.getInicio();
                 Memoria addMemoria = new Memoria(tabela.getInicio(), nome, tamanho);
                 GerenciadorMemoria.memoria.add(addMemoria);
                 tabela.reduzirTamanho(tamanho);
